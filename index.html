@@ -3,23 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>العالمية للطيران والسفر</title>
+    <title>العالمية للطيران والسفر - Al Alamia Travel</title>
     <style>
-        body { font-family: system-ui, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; direction: rtl; text-align: center; }
-        .card { background: #fff; border-radius: 16px; padding: 25px; max-width: 400px; margin: 40px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-        h1 { color: #0f172a; font-size: 22px; margin-bottom: 10px; }
-        p { color: #475569; font-size: 16px; line-height: 1.6; }
-        .badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 6px 12px; border-radius: 20px; font-weight: bold; margin: 10px 0; }
-        .btn { display: block; background: #2563eb; color: #fff; text-decoration: none; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: bold; margin-top: 20px; }
+        :root { --primary: #2563eb; --dark: #0f172a; --bg: #f8fafc; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 15px; direction: rtl; color: #334155; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .logo { font-size: 18px; font-weight: bold; color: var(--dark); }
+        .lang-btn { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; }
+        .search-card { background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); margin-bottom: 25px; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; font-size: 13px; color: #64748b; margin-bottom: 4px; font-weight: 500; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 15px; background: #fff; }
+        .btn-search { width: 100%; background: var(--primary); color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .results-title { font-size: 16px; font-weight: bold; color: var(--dark); margin-bottom: 12px; }
+        .flight-card { background: #fff; border-radius: 12px; padding: 15px; border: 1px solid #e2e8f0; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+        .flight-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 10px; margin-bottom: 10px; }
+        .airline { font-weight: bold; color: var(--dark); }
+        .price { font-weight: bold; color: var(--primary); font-size: 18px; }
+        .flight-details { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 10px; }
+        .badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: bold; }
+        .footer-support { position: fixed; bottom: 15px; left: 15px; right: 15px; background: var(--dark); color: #fff; text-align: center; padding: 12px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>✈️ العالمية للطيران والسفر</h1>
-        <p>مرحباً بك! النسخة المباشرة شغال الآن بكفاءة.</p>
-        <div class="badge">🧳 أمتعة مدمجة 23 كيلو</div>
-        <a href="https://wa.me/16694993856" class="btn">📞 خدمة العملاء: +16694993856</a>
+
+    <div class="header">
+        <div class="logo">✈️ العالمية للطيران</div>
+        <button class="lang-btn" onclick="toggleLang()">English</button>
     </div>
+
+    <div class="search-card">
+        <div class="form-group">
+            <label id="lbl-from">من (مدينة المغادرة)</label>
+            <input type="text" value="إسطنبول - IST" readonly>
+        </div>
+        <div class="form-group">
+            <label id="lbl-to">إلى (وجهة الوصول)</label>
+            <input type="text" placeholder="أدخل المدينة أو المطار">
+        </div>
+        <div class="form-group">
+            <label id="lbl-date">تاريخ السفر</label>
+            <input type="date">
+        </div>
+        <button class="btn-search" id="btn-search">بحث عن الرحلات</button>
+    </div>
+
+    <div class="results-title" id="lbl-results">الرحلات المتاحة:</div>
+
+    <div class="flight-card">
+        <div class="flight-header">
+            <span class="airline">الخطوط التركية (THY)</span>
+            <span class="price">$280</span>
+        </div>
+        <div class="flight-details">
+            <span>IST ✈️ CAI</span>
+            <span>مباشر (2 س 15 د)</span>
+        </div>
+        <span class="badge">🧳 أمتعة مدمجة 23 كيلو</span>
+    </div>
+
+    <a href="https://wa.me/16694993856" class="footer-support">📞 خدمة العملاء: +16694993856</a>
+
+    <script>
+        let isAr = true;
+        function toggleLang() {
+            isAr = !isAr;
+            document.dir = isAr ? 'rtl' : 'ltr';
+            document.querySelector('.lang-btn').innerText = isAr ? 'English' : 'عربي';
+            document.getElementById('lbl-from').innerText = isAr ? 'من (مدينة المغادرة)' : 'From';
+            document.getElementById('lbl-to').innerText = isAr ? 'إلى (وجهة الوصول)' : 'To';
+            document.getElementById('lbl-date').innerText = isAr ? 'تاريخ السفر' : 'Date';
+            document.getElementById('btn-search').innerText = isAr ? 'بحث عن الرحلات' : 'Search Flights';
+            document.getElementById('lbl-results').innerText = isAr ? 'الرحلات المتاحة:' : 'Available Flights:';
+        }
+    </script>
 </body>
 </html>
-

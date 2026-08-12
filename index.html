@@ -82,3 +82,51 @@
     <a href="https://wa.me/16694993856" class="footer-support">📞 خدمة العملاء: +16694993856</a>
 </body>
 </html>
+        <option value="ORD - شيكاغو (أمريكا)"></option>
+        <option value="IAD - واشنطن (أمريكا)"></option>
+        <option value="MIA - ميامي (أمريكا)"></option>
+        <option value="SFO - سان فرانسيسكو (أمريكا)"></option>
+        <!-- أوروبا -->
+        <option value="LHR - لندن (بريطانيا)"></option>
+        <option value="CDG - باريس (فرنسا)"></option>
+        <option value="FRA - فرانكفورت (ألمانيا)"></option>
+        <option value="AMS - أمستردام (هولندا)"></option>
+    </datalist>
+
+    <div class="header">
+        <div class="logo">✈️ العالمية للطيران</div>
+        <button class="lang-btn" onclick="toggleLang()">English</button>
+    </div>
+
+    <div class="search-card">
+        <div class="trip-type">
+            <label><input type="radio" name="trip" value="oneWay" checked onclick="document.getElementById('return-group').style.display='none'"> ذهاب فقط</label>
+            <label><input type="radio" name="trip" value="roundTrip" onclick="document.getElementById('return-group').style.display='block'"> ذهاب وعودة</label>
+        </div>
+
+        <div class="form-group">
+            <label class="field-label" id="lbl-from">من (مدينة المغادرة)</label>
+            <input type="text" list="airports" value="IST - إسطنبول (تركيا)">
+        </div>
+
+        <div class="form-group">
+            <label class="field-label" id="lbl-to">إلى (وجهة الوصول)</label>
+            <input type="text" list="airports" placeholder="ابحث باسم المدينة أو المطار...">
+        </div>
+
+        <div class="dates-grid">
+            <div class="form-group">
+                <label class="field-label" id="lbl-date">تاريخ الذهاب</label>
+                <input type="date">
+            </div>
+            <div class="form-group" id="return-group" style="display: none;">
+                <label class="field-label" id="lbl-return-date">تاريخ العودة</label>
+                <input type="date">
+            </div>
+        </div>
+        <button class="btn-search" id="btn-search">بحث عن الرحلات</button>
+    </div>
+
+    <a href="https://wa.me/16694993856" class="footer-support">📞 خدمة العملاء: +16694993856</a>
+</body>
+</html>

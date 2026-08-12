@@ -7,14 +7,21 @@
     <style>
         :root { --primary: #2563eb; --dark: #0f172a; --bg: #f8fafc; }
         body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 15px; direction: rtl; color: #334155; }
-        .header { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; }
         .logo { font-size: 18px; font-weight: bold; color: var(--dark); }
         .lang-btn { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; }
         .search-card { background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); margin-bottom: 25px; }
+        
+        .trip-type { display: flex; gap: 15px; margin-bottom: 15px; }
+        .trip-type label { display: flex; align-items: center; gap: 5px; font-size: 14px; font-weight: bold; color: var(--dark); cursor: pointer; }
+
         .form-group { margin-bottom: 12px; }
-        label { display: block; font-size: 13px; color: #64748b; margin-bottom: 4px; font-weight: 500; }
+        label.field-label { display: block; font-size: 13px; color: #64748b; margin-bottom: 4px; font-weight: 500; }
         input, select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 15px; background: #fff; }
+        
+        .dates-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .btn-search { width: 100%; background: var(--primary); color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        
         .results-title { font-size: 16px; font-weight: bold; color: var(--dark); margin-bottom: 12px; }
         .flight-card { background: #fff; border-radius: 12px; padding: 15px; border: 1px solid #e2e8f0; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
         .flight-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 10px; margin-bottom: 10px; }
@@ -27,24 +34,61 @@
 </head>
 <body>
 
+    <!-- قائمة اقتراحات أسماء المطارات الدولية -->
+    <datalist id="airports">
+        <option value="BGW - مطار بغداد الدولي (العراق)"></option>
+        <option value="EBL - مطار أربيل الدولي (العراق)"></option>
+        <option value="BSR - مطار البصرة الدولي (العراق)"></option>
+        <option value="NJF - مطار النجف الدولي (العراق)"></option>
+        <option value="IST - مطار إسطنبول الدولي (تركيا)"></option>
+        <option value="SAW - مطار صبيحة كوكجن (تركيا)"></option>
+        <option value="CAI - مطار القاهرة الدولي (مصر)"></option>
+        <option value="DXB - مطار دبي الدولي (الإمارات)"></option>
+        <option value="RUH - مطار الملك خالد - الرياض (السعودية)"></option>
+        <option value="JED - مطار الملك عبدالعزيز - جدة (السعودية)"></option>
+        <option value="AMM - مطار الملكة علياء - عمان (الأردن)"></option>
+        <option value="BEY - مطار رفيق الحريري - بيروت (لبنان)"></option>
+    </datalist>
+
     <div class="header">
         <div class="logo">✈️ العالمية للطيران</div>
         <button class="lang-btn" onclick="toggleLang()">English</button>
     </div>
 
     <div class="search-card">
-        <div class="form-group">
-            <label id="lbl-from">من (مدينة المغادرة)</label>
-            <input type="text" value="إسطنبول - IST" readonly>
+        <!-- خيار نوع الرحلة: ذهاب وعودة / ذهاب فقط -->
+        <div class="trip-type">
+            <label>
+                <input type="radio" name="trip" value="oneWay" checked onclick="toggleReturn(false)"> 
+                <span id="lbl-oneway">ذهاب فقط</span>
+            </label>
+            <label>
+                <input type="radio" name="trip" value="roundTrip" onclick="toggleReturn(true)"> 
+                <span id="lbl-round">ذهاب وعودة</span>
+            </label>
         </div>
+
         <div class="form-group">
-            <label id="lbl-to">إلى (وجهة الوصول)</label>
-            <input type="text" placeholder="أدخل المدينة أو المطار">
+            <label class="field-label" id="lbl-from">من (مدينة المغادرة)</label>
+            <input type="text" list="airports" value="IST - مطار إسطنبول الدولي (تركيا)">
         </div>
+
         <div class="form-group">
-            <label id="lbl-date">تاريخ السفر</label>
-            <input type="date">
+            <label class="field-label" id="lbl-to">إلى (وجهة الوصول)</label>
+            <input type="text" list="airports" placeholder="ابحث باسم المدينة أو المطار...">
         </div>
+
+        <div class="dates-grid">
+            <div class="form-group">
+                <label class="field-label" id="lbl-date">تاريخ الذهاب</label>
+                <input type="date">
+            </div>
+            <div class="form-group" id="return-group" style="display: none;">
+                <label class="field-label" id="lbl-return-date">تاريخ العودة</label>
+                <input type="date">
+            </div>
+        </div>
+
         <button class="btn-search" id="btn-search">بحث عن الرحلات</button>
     </div>
 
@@ -52,12 +96,12 @@
 
     <div class="flight-card">
         <div class="flight-header">
-            <span class="airline">الخطوط التركية (THY)</span>
-            <span class="price">$280</span>
+            <span class="airline">الخطوط الجوية العراقية (IA)</span>
+            <span class="price">$310</span>
         </div>
         <div class="flight-details">
-            <span>IST ✈️ CAI</span>
-            <span>مباشر (2 س 15 د)</span>
+            <span>IST ✈️ BGW</span>
+            <span>مباشر (2 س 30 د)</span>
         </div>
         <span class="badge">🧳 أمتعة مدمجة 23 كيلو</span>
     </div>
@@ -66,13 +110,21 @@
 
     <script>
         let isAr = true;
+
+        function toggleReturn(show) {
+            document.getElementById('return-group').style.display = show ? 'block' : 'none';
+        }
+
         function toggleLang() {
             isAr = !isAr;
             document.dir = isAr ? 'rtl' : 'ltr';
             document.querySelector('.lang-btn').innerText = isAr ? 'English' : 'عربي';
+            document.getElementById('lbl-oneway').innerText = isAr ? 'ذهاب فقط' : 'One-way';
+            document.getElementById('lbl-round').innerText = isAr ? 'ذهاب وعودة' : 'Round-trip';
             document.getElementById('lbl-from').innerText = isAr ? 'من (مدينة المغادرة)' : 'From';
             document.getElementById('lbl-to').innerText = isAr ? 'إلى (وجهة الوصول)' : 'To';
-            document.getElementById('lbl-date').innerText = isAr ? 'تاريخ السفر' : 'Date';
+            document.getElementById('lbl-date').innerText = isAr ? 'تاريخ الذهاب' : 'Departure Date';
+            document.getElementById('lbl-return-date').innerText = isAr ? 'تاريخ العودة' : 'Return Date';
             document.getElementById('btn-search').innerText = isAr ? 'بحث عن الرحلات' : 'Search Flights';
             document.getElementById('lbl-results').innerText = isAr ? 'الرحلات المتاحة:' : 'Available Flights:';
         }

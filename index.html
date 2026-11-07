@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>العالمية للطيران والسفر - Al Alamia Travel</title>
+    <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
+  (function () {
+        var script = document.createElement("script");
+        script.async = 1;
+        script.type = "module";
+        script.src = "https://tpwidg.com/wl_web/main.js?wl_id=24311";
+        document.head.appendChild(script);
+      })();
+</script>
+    
     <style>
         :root { --primary: #2563eb; --dark: #0f172a; --bg: #f8fafc; }
         body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 15px; direction: rtl; color: #334155; }
@@ -78,7 +88,8 @@
         </div>
         <button class="btn-search" id="btn-search">بحث عن الرحلات</button>
     </div>
-
+<div id="tpwl-search"></div>
+    
     <a href="https://wa.me/16694993856" class="footer-support">📞 خدمة العملاء: +16694993856</a>
 </body>
 </html>
@@ -99,34 +110,3 @@
     </div>
 
     <div class="search-card">
-        <div class="trip-type">
-            <label><input type="radio" name="trip" value="oneWay" checked onclick="document.getElementById('return-group').style.display='none'"> ذهاب فقط</label>
-            <label><input type="radio" name="trip" value="roundTrip" onclick="document.getElementById('return-group').style.display='block'"> ذهاب وعودة</label>
-        </div>
-
-        <div class="form-group">
-            <label class="field-label" id="lbl-from">من (مدينة المغادرة)</label>
-            <input type="text" list="airports" value="IST - إسطنبول (تركيا)">
-        </div>
-
-        <div class="form-group">
-            <label class="field-label" id="lbl-to">إلى (وجهة الوصول)</label>
-            <input type="text" list="airports" placeholder="ابحث باسم المدينة أو المطار...">
-        </div>
-
-        <div class="dates-grid">
-            <div class="form-group">
-                <label class="field-label" id="lbl-date">تاريخ الذهاب</label>
-                <input type="date">
-            </div>
-            <div class="form-group" id="return-group" style="display: none;">
-                <label class="field-label" id="lbl-return-date">تاريخ العودة</label>
-                <input type="date">
-            </div>
-        </div>
-        <button class="btn-search" id="btn-search">بحث عن الرحلات</button>
-    </div>
-
-    <a href="https://wa.me/16694993856" class="footer-support">📞 خدمة العملاء: +16694993856</a>
-</body>
-</html>
